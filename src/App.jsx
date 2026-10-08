@@ -1,37 +1,83 @@
 import { useState } from 'react';
 import './App.css'
-
-
 function CalcDisplay({dispValue}) {
-
   return (
       <div className='Display'>
         {dispValue}
       </div>
   );
 }
-
 function CalcButton({buttonLabel, buttonClassName = "Button", onClick}) {
-
   return (
-      <button className='Button' onClick={onClick}>
+      <button className={buttonClassName} onClick={onClick}>
         {buttonLabel}
         </button>
   );
 }
-
 function App() {
-  const[disp, setDisp] = useState(0);
+  const[disp, setDisp] = useState("0");
+  const [savedValue, setSavedValue] = useState(null);
+  const [selectedOp, setSelectedOp] = useState(null);
+  const [showingOp, setShowingOp] = useState(false);
 
   const buttonClickHandler = (e) => {
     e.preventDefault();
-    const value = e.target.innerHTML; 
-    setDisp(value);
+    const value = e.target.innerHTML;
+
+    if (value === "Evangelista") {
+      setDisp("Shanreel Evangelista");
+      setShowingOp(true);
+      return;
+    }
+
+    if (value === "CLR") {
+      setDisp("0");
+      setSavedValue(null);
+      setSelectedOp(null);
+      setShowingOp(false);
+      return;
+    }
+
+    if (value === "=") {
+      if (savedValue !== null && selectedOp) {
+        const current = parseFloat(disp);
+        let result;
+        if (selectedOp === "+") result = savedValue + current;
+        if (selectedOp === "-") result = savedValue - current;
+        if (selectedOp === "×") result = savedValue * current;
+        if (selectedOp === "÷") result = savedValue / current;
+        setDisp(String(result));
+        setSavedValue(null);
+        setSelectedOp(null);
+        setShowingOp(false);
+      }
+      return;
+    }
+
+    if (value === "+" || value === "-" || value === "×" || value === "÷") {
+      setSavedValue(parseFloat(disp));
+      setSelectedOp(value);
+      setDisp(value);
+      setShowingOp(true);
+      return;
+    }
+
+    if (showingOp) {
+      setDisp(value);
+      setShowingOp(false);
+    } else {
+      if (disp === "0") {
+        setDisp(value);
+      } else {
+        setDisp(disp + value);
+      }
+    }
   }
+
   return (
     <div className='Background'>
     <div className = 'App'>
-      <div className='Header'><strong>Shanreel Evangelista - WMD3A</strong></div>
+      <div className='Header'><strong>Calculator of Shanreel Evangelista - WMD3A</strong></div>
       <div className='Calculator'>
         <CalcDisplay dispValue={disp}/>
         <div className='Keypad'>
@@ -51,11 +97,11 @@ function App() {
           <CalcButton buttonLabel={0} onClick={buttonClickHandler}/>
           <CalcButton buttonLabel={'='} onClick={buttonClickHandler}/>
           <CalcButton buttonLabel={'+'} onClick={buttonClickHandler}/>
+          <CalcButton buttonLabel={"Evangelista"} buttonClassName="Button surname" onClick={buttonClickHandler}/>
         </div>
       </div>
     </div>
     </div>
   )
 }
-
 export default App
