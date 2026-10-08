@@ -44,7 +44,7 @@ function App() {
         let result;
         if (selectedOp === "+") result = savedValue + current;
         if (selectedOp === "-") result = savedValue - current;
-        if (selectedOp === "×") result = savedValue * current;
+        if (selectedOp === "*") result = savedValue * current;
         if (selectedOp === "÷") result = savedValue / current;
         setDisp(String(result));
         setSavedValue(null);
@@ -54,7 +54,7 @@ function App() {
       return;
     }
 
-    if (value === "+" || value === "-" || value === "×" || value === "÷") {
+    if (value === "+" || value === "-" || value === "*" || value === "÷") {
       setSavedValue(parseFloat(disp));
       setSelectedOp(value);
       setDisp(value);
@@ -88,7 +88,7 @@ function App() {
           <CalcButton buttonLabel={4} onClick={buttonClickHandler}/>
           <CalcButton buttonLabel={5} onClick={buttonClickHandler}/>
           <CalcButton buttonLabel={6} onClick={buttonClickHandler}/>
-          <CalcButton buttonLabel={'×'} onClick={buttonClickHandler}/>
+          <CalcButton buttonLabel={'*'} onClick={buttonClickHandler}/>
           <CalcButton buttonLabel={1} onClick={buttonClickHandler}/>
           <CalcButton buttonLabel={2} onClick={buttonClickHandler}/>
           <CalcButton buttonLabel={3} onClick={buttonClickHandler}/>
