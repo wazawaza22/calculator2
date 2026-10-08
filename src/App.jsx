@@ -30,7 +30,7 @@ function App() {
       return;
     }
 
-    if (value === "CLR") {
+    if (value === "C") {
       setDisp("0");
       setSavedValue(null);
       setSelectedOp(null);
@@ -93,7 +93,7 @@ function App() {
           <CalcButton buttonLabel={2} onClick={buttonClickHandler}/>
           <CalcButton buttonLabel={3} onClick={buttonClickHandler}/>
           <CalcButton buttonLabel={'-'} onClick={buttonClickHandler}/>
-          <CalcButton buttonLabel={'CLR'} onClick={buttonClickHandler}/>
+          <CalcButton buttonLabel={'C'} buttonClassName="Button clear" onClick={buttonClickHandler}/>
           <CalcButton buttonLabel={0} onClick={buttonClickHandler}/>
           <CalcButton buttonLabel={'='} onClick={buttonClickHandler}/>
           <CalcButton buttonLabel={'+'} onClick={buttonClickHandler}/>
